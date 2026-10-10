@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Підбір туру{% endblock %}
+{% block content %}
+<h1 class="page-title">Підбір туру за бюджетом</h1>
+<p class="muted">Вкажіть суму та кількість людей — покажемо тури, на які вистачить грошей.</p>
+
+<form class="inline-form" method="get" action="{{ url_for('pick') }}">
+    <div>
+        <label for="budget">Бюджет (грн)</label>
+        <input type="number" id="budget" name="budget" min="1" required value="{{ budget }}">
+    </div>
+    <div>
+        <label for="people">Кількість людей</label>
+        <input type="number" id="people" name="people" min="1" required value="{{ people }}">
+    </div>
+    <div>
+        <label for="sort">Сортування</label>
+        <select id="sort" name="sort">
+            <option value="cheap" {% if sort == 'cheap' %}selected{% endif %}>Спочатку дешевші</option>
+            <option value="expensive" {% if sort == 'expensive' %}selected{% endif %}>Спочатку дорожчі</option>
+        </select>
+    </div>
+    <button class="btn" type="submit">Підібрати</button>
+</form>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+{% if found is not none %}
+    {% if found %}
+    <p class="result-note">Знайдено турів: {{ found|length }}</p>
+    <div class="tours-list">
+        {% for tour in found %}
+        <div>
+            {% include "_card.html" %}
+            <p class="total-line">Разом за {{ people }} ос.: <strong>{{ tour['total'] }} грн</strong> · залишиться {{ tour['left'] }} грн</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty">На таку суму тури не знайдено. Збільште бюджет або зменште кількість людей.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

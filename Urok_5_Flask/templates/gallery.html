@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Галерея{% endblock %}
+{% block content %}
+<h1 class="page-title">Галерея</h1>
+<p class="muted">Натисніть на фото, щоб збільшити його. Закрити можна кліком або клавішею Esc.</p>
+
+<div class="gallery">
+    {% for photo in photos %}
+    <img class="gallery-img" src="{{ url_for('static', filename='images/' + photo[0]) }}" alt="{{ photo[1] }}">
+    {% endfor %}
+</div>
+
+<div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="" alt="Збільшене фото">
+</div>
+{% endblock %}

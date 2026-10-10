@@ -1,0 +1,25 @@
+<div class="tour-card{% if tour['finished'] %} finished{% endif %}" data-title="{{ tour['title'] }}" data-price="{{ tour['final_price'] }}">
+    <a class="card-photo" href="{{ url_for('tour_page', tour_id=tour['id']) }}">
+        {% if tour['image'] %}
+        <img src="{{ url_for('static', filename='images/' + tour['image']) }}" alt="{{ tour['title'] }}">
+        {% else %}
+        <div class="no-photo">✈</div>
+        {% endif %}
+        <span class="badge">{{ tour['season_name'] }}</span>
+    </a>
+    <div class="card-body">
+        <h3><a href="{{ url_for('tour_page', tour_id=tour['id']) }}">{{ tour['title'] }}</a></h3>
+        <p class="stars">{{ tour['stars'] }} <span>{{ tour['rating_text'] }}</span></p>
+        <p class="card-desc">{{ tour['description'] }}</p>
+        <p class="days">{{ tour['days_text'] }} <span class="views">· 👁 {{ tour['views'] }}</span></p>
+        <div class="card-bottom">
+            <div>
+                <span class="price">{{ tour['final_price'] }} грн</span>
+                {% if tour['factor'] != 1 %}
+                <span class="price-note">базова {{ tour['base_price'] }} грн · ×{{ tour['factor'] }}</span>
+                {% endif %}
+            </div>
+            <a class="btn btn-small" href="{{ url_for('tour_page', tour_id=tour['id']) }}">Детальніше</a>
+        </div>
+    </div>
+</div>

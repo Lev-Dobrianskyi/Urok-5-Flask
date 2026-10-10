@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Туристична агенція{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a class="logo" href="{{ url_for('index') }}">✈ Мандрівка</a>
+            <button id="menu-toggle" class="menu-toggle">☰</button>
+            <nav id="menu" class="menu">
+                <a href="{{ url_for('index') }}" {% if request.path == '/' %}class="active"{% endif %}>Головна</a>
+                <a href="{{ url_for('about') }}" {% if request.path == '/about' %}class="active"{% endif %}>Про нас</a>
+                <a href="{{ url_for('tours') }}" {% if request.path.startswith('/tour') %}class="active"{% endif %}>Тури</a>
+                <a href="{{ url_for('pick') }}" {% if request.path == '/pick' %}class="active"{% endif %}>Підбір</a>
+                <a href="{{ url_for('compare') }}" {% if request.path == '/compare' %}class="active"{% endif %}>Порівняння</a>
+                <a href="{{ url_for('stats') }}" {% if request.path == '/stats' %}class="active"{% endif %}>Статистика</a>
+                <a href="{{ url_for('add_tour') }}" {% if request.path == '/add_tour' %}class="active"{% endif %}>Додати тур</a>
+                <a href="{{ url_for('gallery') }}" {% if request.path == '/gallery' %}class="active"{% endif %}>Галерея</a>
+                <a href="{{ url_for('contacts') }}" {% if request.path == '/contacts' %}class="active"{% endif %}>Контакти</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Туристична агенція «Мандрівка»</p>
+        {% if visits %}
+        <p class="visits">👁 Переглядів: {{ visits['total'] }} &nbsp;·&nbsp; 👤 Унікальних відвідувачів: {{ visits['unique'] }}</p>
+        {% endif %}
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

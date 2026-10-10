@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+<h1 class="page-title">Панель статистики</h1>
+
+<div class="stat-cards">
+    <div class="stat-card"><span class="num">{{ visits['total'] }}</span><span class="lbl">Переглядів сайту</span></div>
+    <div class="stat-card"><span class="num">{{ visits['unique'] }}</span><span class="lbl">Унікальних відвідувачів</span></div>
+    <div class="stat-card"><span class="num">{{ tours|length }}</span><span class="lbl">Турів у базі</span></div>
+    <div class="stat-card"><span class="num">{{ average }}</span><span class="lbl">Середня ціна, грн</span></div>
+    <div class="stat-card"><span class="num">{{ lowest }}</span><span class="lbl">Найдешевший, грн</span></div>
+    <div class="stat-card"><span class="num">{{ highest }}</span><span class="lbl">Найдорожчий, грн</span></div>
+</div>
+
+<div class="charts">
+    <div class="chart-box">
+        <h3>Відвідування за днями</h3>
+        <div class="chart">
+            {% for day in days %}
+            <span class="chart-item" data-label="{{ day['label'] }}" data-value="{{ day['value'] }}"></span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="chart-box">
+        <h3>Тури за ціною</h3>
+        <div class="chart">
+            {% for item in price_chart %}
+            <span class="chart-item" data-label="{{ item['label'] }}" data-value="{{ item['value'] }}"></span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<h2 class="section-title">Усі тури</h2>
+<table class="stats-table">
+    <tr><th>Тур</th><th>Ціна</th><th>Переглядів</th><th>Рейтинг</th></tr>
+    {% for tour in tours %}
+    <tr>
+        <td><a href="{{ url_for('tour_page', tour_id=tour['id']) }}">{{ tour['title'] }}</a></td>
+        <td>{{ tour['final_price'] }} грн</td>
+        <td>{{ tour['views'] }}</td>
+        <td><span class="stars">{{ tour['stars'] }}</span> {{ tour['rating_text'] }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4">Турів поки немає</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Порівняння турів{% endblock %}
+{% block content %}
+<h1 class="page-title">Порівняння двох турів</h1>
+
+<form class="inline-form two" method="get" action="{{ url_for('compare') }}">
+    <div>
+        <label for="a">Перший тур</label>
+        <select id="a" name="a" required>
+            <option value="">— оберіть —</option>
+            {% for t in all_tours %}
+            <option value="{{ t['id'] }}" {% if t['id'] == a_id %}selected{% endif %}>{{ t['title'] }} — {{ t['final_price'] }} грн</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="b">Другий тур</label>
+        <select id="b" name="b" required>
+            <option value="">— оберіть —</option>
+            {% for t in all_tours %}
+            <option value="{{ t['id'] }}" {% if t['id'] == b_id %}selected{% endif %}>{{ t['title'] }} — {{ t['final_price'] }} грн</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button class="btn" type="submit">Порівняти</button>
+</form>
+
+{% if message %}
+<p class="empty">{{ message }}</p>
+{% endif %}
+
+{% if result %}
+<div class="compare-grid">
+    {% for tour in compared %}
+        {% include "_card.html" %}
+    {% endfor %}
+</div>
+
+<div class="compare-result">
+    {% if result['diff'] == 0 %}
+    <h3>Ціна обох турів однакова</h3>
+    {% else %}
+    <h3>«{{ result['cheaper']['title'] }}» дешевший</h3>
+    <p>Різниця в ціні: <strong>{{ result['diff'] }} грн</strong> (на <strong>{{ result['percent'] }}%</strong> дорожче, ніж дешевший тур)</p>
+    <p class="muted">{{ result['cheaper']['final_price'] }} грн проти {{ result['pricier']['final_price'] }} грн</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

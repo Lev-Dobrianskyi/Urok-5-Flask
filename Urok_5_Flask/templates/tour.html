@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}{% if tour %}{{ tour['title'] }}{% else %}Тур не знайдено{% endif %}{% endblock %}
+{% block content %}
+{% if tour %}
+<a class="back-link" href="{{ url_for('tours') }}">← Усі тури</a>
+
+<div class="tour-detail">
+    <div class="detail-photo">
+        {% if tour['image'] %}
+        <img src="{{ url_for('static', filename='images/' + tour['image']) }}" alt="{{ tour['title'] }}">
+        {% else %}
+        <div class="no-photo">✈</div>
+        {% endif %}
+    </div>
+    <div class="detail-info">
+        <h1>{{ tour['title'] }}</h1>
+        <p class="stars">{{ tour['stars'] }} <span>{{ tour['rating_text'] }}</span></p>
+        <p>{{ tour['description'] }}</p>
+
+        <p class="big-price">{{ tour['final_price'] }} грн</p>
+
+        <div class="info-list">
+            <div class="info-row"><span>Сезон</span><strong>{{ tour['season_name'] }} (×{{ tour['factor'] }}), базова ціна {{ tour['base_price'] }} грн</strong></div>
+            <div class="info-row"><span>Дата виїзду</span><strong>{{ tour['depart_text'] }}</strong></div>
+            <div class="info-row"><span>Статус</span><strong>{{ tour['days_text'] }}</strong></div>
+            <div class="info-row"><span>Переглядів</span><strong>👁 {{ tour['views'] }}</strong></div>
+        </div>
+
+        <a class="btn" href="{{ url_for('compare', a=tour['id']) }}">⚖ Порівняти з іншим туром</a>
+    </div>
+</div>
+
+<div class="reviews">
+    <div>
+        <h2 class="section-title">Відгуки ({{ reviews|length }})</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="review">
+                <div class="review-head">
+                    <strong>{{ review['name'] }}</strong>
+                    <span class="muted">{{ review['created'] }}</span>
+                </div>
+                <p class="stars">{{ '★' * review['rating'] }}{{ '☆' * (5 - review['rating']) }}</p>
+                {% if review['comment'] %}<p>{{ review['comment'] }}</p>{% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="empty">Відгуків поки немає. Будьте першим!</p>
+        {% endif %}
+    </div>
+
+    <form class="form-card wide" method="post" action="{{ url_for('add_review', tour_id=tour['id']) }}">
+        <h3>Залишити відгук</h3>
+        <label for="name">Ім'я</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="rating">Оцінка</label>
+        <select id="rating" name="rating" required>
+            <option value="">Оберіть оцінку</option>
+            <option value="5">★★★★★ — відмінно</option>
+            <option value="4">★★★★☆ — добре</option>
+            <option value="3">★★★☆☆ — нормально</option>
+            <option value="2">★★☆☆☆ — погано</option>
+            <option value="1">★☆☆☆☆ — жахливо</option>
+        </select>
+
+        <label for="comment">Коментар</label>
+        <textarea id="comment" name="comment" rows="3"></textarea>
+
+        <p class="error">{{ error }}</p>
+        <button class="btn" type="submit">Надіслати</button>
+    </form>
+</div>
+{% else %}
+<p class="empty">Тур не знайдено</p>
+<a class="back-link" href="{{ url_for('tours') }}">← До всіх турів</a>
+{% endif %}
+{% endblock %}

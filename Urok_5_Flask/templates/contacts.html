@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Контакти{% endblock %}
+{% block content %}
+<h1 class="page-title">Контакти</h1>
+<div class="features">
+    <div class="feature"><div class="icon">📍</div><h3>Адреса</h3><p>{{ info['address'] }}</p></div>
+    <div class="feature"><div class="icon">📞</div><h3>Телефон</h3><p>{{ info['phone'] }}</p></div>
+    <div class="feature"><div class="icon">✉️</div><h3>Email</h3><p>{{ info['email'] }}</p></div>
+    <div class="feature"><div class="icon">🕒</div><h3>Графік роботи</h3><p>{{ info['hours'] }}</p></div>
+</div>
+{% endblock %}

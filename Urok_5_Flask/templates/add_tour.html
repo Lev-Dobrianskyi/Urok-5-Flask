@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Додати тур{% endblock %}
+{% block content %}
+<h1 class="page-title">Додати тур</h1>
+
+<form id="tour-form" class="form-card" method="post">
+    <label for="title">Назва</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Опис</label>
+    <textarea id="description" name="description" rows="4"></textarea>
+
+    <label for="price">Базова ціна (грн)</label>
+    <input type="number" id="price" name="price" required>
+    <p class="hint">Сезонний коефіцієнт застосується автоматично залежно від місяця виїзду.</p>
+
+    <label for="depart_date">Дата виїзду</label>
+    <input type="date" id="depart_date" name="depart_date">
+
+    <label for="image">Назва файлу фото</label>
+    <input type="text" id="image" name="image" placeholder="beach.jpg">
+    <p class="hint">Файл має лежати в static/images/ (наприклад: beach.jpg, mountains.jpg, lake.jpg).</p>
+
+    <p id="form-error" class="error">{{ error }}</p>
+
+    <button class="btn" type="submit">Зберегти</button>
+</form>
+{% endblock %}

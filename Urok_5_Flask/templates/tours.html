@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Тури{% endblock %}
+{% block content %}
+<h1 class="page-title">Наші тури</h1>
+<p class="muted">Ціни вказано з урахуванням сезону: влітку тури дорожчі, восени дешевші.</p>
+
+{% if tours %}
+<div class="filters">
+    <input type="text" id="search" placeholder="🔍 Пошук за назвою">
+    <input type="number" id="max-price" placeholder="Максимальна ціна, грн">
+</div>
+
+<div class="tours-list">
+    {% for tour in tours %}
+        {% include "_card.html" %}
+    {% endfor %}
+</div>
+
+<p id="no-results" class="empty hidden">Нічого не знайдено</p>
+{% else %}
+<p class="empty">Турів поки немає</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,427 @@
+:root {
+    --primary: #0e7c86;
+    --primary-dark: #0a5c64;
+    --accent: #ff8a3d;
+    --accent-dark: #e5701f;
+    --bg: #f2f6f8;
+    --card: #ffffff;
+    --text: #1e2a32;
+    --muted: #6b7b86;
+    --line: #e1e8ed;
+    --radius: 14px;
+    --shadow: 0 4px 16px rgba(20, 50, 70, 0.10);
+    --shadow-hover: 0 12px 28px rgba(20, 50, 70, 0.20);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { color: var(--primary); }
+h1, h2, h3 { line-height: 1.25; }
+
+/* ---------- Шапка і меню ---------- */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+.logo { color: #fff; font-size: 24px; font-weight: 800; text-decoration: none; letter-spacing: 0.5px; }
+.menu { display: flex; gap: 4px; }
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.menu a:hover { background: rgba(255, 255, 255, 0.18); }
+.menu a.active { background: var(--accent); font-weight: 600; }
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* ---------- Основний вміст ---------- */
+.content { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+.page-title { font-size: 2rem; margin: 0 0 8px; color: var(--primary-dark); }
+.muted { color: var(--muted); }
+.section { margin-top: 44px; }
+.section-title { font-size: 1.5rem; margin: 0 0 18px; padding-left: 14px; border-left: 5px solid var(--accent); }
+.empty { background: var(--card); padding: 18px 22px; border-radius: var(--radius); box-shadow: var(--shadow); color: var(--muted); text-align: center; }
+.text-card { background: var(--card); padding: 24px 28px; border-radius: var(--radius); box-shadow: var(--shadow); }
+.text-card h2 { margin-top: 0; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+    display: inline-block;
+    padding: 11px 24px;
+    background: var(--accent);
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+.btn-outline { background: transparent; border-color: #fff; }
+.btn-outline:hover { background: rgba(255, 255, 255, 0.22); }
+.btn-small { padding: 7px 16px; font-size: 14px; }
+
+/* ---------- Головний банер (фото як фон: шлях відносно css-файлу) ---------- */
+.hero {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 24px;
+    color: #fff;
+    border-radius: var(--radius);
+    background-image: linear-gradient(rgba(8, 40, 55, 0.55), rgba(8, 40, 55, 0.55)), url('../images/mountains.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--shadow);
+}
+.hero h1 { font-size: 2.8rem; margin: 0 0 14px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); }
+.hero p { max-width: 640px; font-size: 1.15rem; margin: 0 0 26px; }
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+/* ---------- Блоки переваг / контактів ---------- */
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.feature {
+    background: var(--card);
+    padding: 24px 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.feature:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.feature .icon { font-size: 38px; margin-bottom: 6px; }
+.feature h3 { margin: 6px 0; }
+.feature p { margin: 0; color: var(--muted); }
+
+/* ---------- Тур дня ---------- */
+.day-tour {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.day-tour > a { display: block; }
+.day-tour img, .day-tour .no-photo { width: 100%; height: 100%; min-height: 280px; object-fit: cover; display: block; }
+.day-info { padding: 28px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.day-info h2 { margin: 4px 0; font-size: 1.8rem; }
+.day-info p { margin: 4px 0; }
+.tag {
+    align-self: flex-start;
+    background: #fff1e6;
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 999px;
+}
+.big-price { font-size: 2rem; font-weight: 800; color: var(--primary-dark); margin: 8px 0; }
+
+/* ---------- Картки турів ---------- */
+.tours-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 24px; }
+.tour-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.tour-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.card-photo { position: relative; display: block; height: 190px; overflow: hidden; }
+.card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.tour-card:hover .card-photo img { transform: scale(1.08); }
+.no-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 54px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.93);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 999px;
+}
+.card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+.card-body h3 { margin: 0 0 2px; font-size: 1.15rem; }
+.card-body h3 a { color: var(--text); text-decoration: none; }
+.card-body h3 a:hover { color: var(--primary); }
+.card-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.stars { color: #f5b301; margin: 0; font-size: 15px; letter-spacing: 1px; }
+.stars span { color: var(--muted); font-size: 13px; letter-spacing: 0; }
+.days { font-size: 14px; font-weight: 600; color: var(--primary); margin: 4px 0 12px; }
+.views { color: var(--muted); font-weight: 400; }
+.card-bottom { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.price { font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); }
+.price-note { display: block; font-size: 12px; color: var(--muted); }
+.tour-card.finished .card-photo img, .tour-card.finished .no-photo { filter: grayscale(1); opacity: 0.6; }
+.tour-card.finished .days { color: #c0392b; }
+.hidden { display: none !important; }
+
+/* ---------- Пошук і фільтр ---------- */
+.filters {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0 24px;
+    background: var(--card);
+    padding: 14px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.filters input { flex: 1; }
+
+/* ---------- Поля форм ---------- */
+input, textarea, select {
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14, 124, 134, 0.18);
+}
+
+.form-card {
+    background: var(--card);
+    padding: 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 18px;
+}
+.form-card.wide { max-width: none; margin-top: 0; }
+.form-card h3 { margin: 0 0 6px; }
+.form-card label { font-weight: 600; font-size: 14px; margin-top: 8px; }
+.form-card button { margin-top: 12px; align-self: flex-start; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.error { color: #c0392b; min-height: 22px; margin: 6px 0 0; font-weight: 600; }
+
+/* ---------- Підбір і порівняння ---------- */
+.inline-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 14px;
+    align-items: end;
+    background: var(--card);
+    padding: 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 18px 0 24px;
+}
+.inline-form.two { grid-template-columns: 1fr 1fr auto; }
+.inline-form label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.result-note { font-weight: 700; margin: 0 0 16px; }
+.total-line { margin: 10px 4px 0; font-size: 14px; color: var(--muted); }
+.total-line strong { color: var(--primary-dark); }
+
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.compare-result {
+    margin-top: 24px;
+    background: var(--card);
+    padding: 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-top: 5px solid var(--accent);
+}
+.compare-result h3 { margin: 0 0 8px; }
+.compare-result p { margin: 4px 0; }
+.compare-result strong { color: var(--accent-dark); }
+
+/* ---------- Сторінка туру та відгуки ---------- */
+.back-link { display: inline-block; margin-bottom: 14px; font-weight: 600; text-decoration: none; }
+.tour-detail {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 28px;
+    background: var(--card);
+    padding: 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.detail-photo img, .detail-photo .no-photo { width: 100%; height: 380px; object-fit: cover; border-radius: 12px; display: block; }
+.detail-info h1 { margin: 0 0 6px; }
+.info-list { display: grid; gap: 8px; margin: 14px 0 20px; }
+.info-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--bg); border-radius: 10px; font-size: 14px; }
+.info-row strong { text-align: right; }
+
+.reviews { margin-top: 36px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: start; }
+.review { background: var(--card); padding: 14px 18px; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 14px; }
+.review p { margin: 4px 0; }
+.review-head { display: flex; justify-content: space-between; gap: 10px; }
+
+/* ---------- Статистика ---------- */
+.stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 20px 0 28px; }
+.stat-card {
+    background: var(--card);
+    padding: 18px 12px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-bottom: 4px solid var(--primary);
+}
+.stat-card .num { display: block; font-size: 1.9rem; font-weight: 800; color: var(--primary-dark); }
+.stat-card .lbl { color: var(--muted); font-size: 14px; }
+
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 36px; }
+.chart-box { background: var(--card); padding: 20px 22px; border-radius: var(--radius); box-shadow: var(--shadow); }
+.chart-box h3 { margin: 0 0 34px; }
+.chart-item { display: none; }
+.bars { display: flex; gap: 14px; }
+.bar-col { flex: 1; min-width: 0; text-align: center; }
+.bar-area { position: relative; height: 180px; border-bottom: 2px solid var(--line); }
+.bar {
+    position: absolute;
+    bottom: 0;
+    left: 18%;
+    right: 18%;
+    background: linear-gradient(180deg, var(--accent), var(--primary));
+    border-radius: 8px 8px 0 0;
+    transition: height 0.4s;
+}
+.bar-value { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; font-size: 14px; padding-bottom: 3px; }
+.bar-label { margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.stats-table th, .stats-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+.stats-table th { background: var(--primary); color: #fff; }
+.stats-table tr:last-child td { border-bottom: none; }
+.stats-table tr:hover td { background: #f7fafb; }
+
+/* ---------- Галерея ---------- */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.gallery-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: zoom-in;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.gallery-img:hover { transform: scale(1.03); box-shadow: var(--shadow-hover); }
+
+/* ---------- Лайтбокс ---------- */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+
+/* ---------- Підвал ---------- */
+.footer { background: #12303a; color: #cfe0e5; text-align: center; padding: 24px 16px; margin-top: 40px; }
+.footer p { margin: 4px 0; }
+.footer .visits { font-size: 14px; color: #9fc3cc; }
+
+/* ---------- Планшети ---------- */
+@media (max-width: 900px) {
+    .header-inner { flex-wrap: wrap; justify-content: center; }
+    .menu { flex-wrap: wrap; justify-content: center; }
+    .day-tour, .tour-detail, .reviews, .charts, .compare-grid { grid-template-columns: 1fr; }
+    .inline-form, .inline-form.two { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Телефони ---------- */
+@media (max-width: 600px) {
+    .header-inner { justify-content: space-between; padding: 10px 16px; }
+    .menu-toggle { display: block; }
+    .menu { display: none; flex-direction: column; width: 100%; padding-top: 8px; }
+    .menu.open { display: flex; }
+    .menu a { padding: 10px 14px; }
+    .content { padding: 18px 16px; }
+    .hero { min-height: 320px; }
+    .hero h1 { font-size: 1.9rem; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .filters { flex-direction: column; }
+    .inline-form, .inline-form.two { grid-template-columns: 1fr; }
+    .detail-photo img, .detail-photo .no-photo { height: 240px; }
+}
